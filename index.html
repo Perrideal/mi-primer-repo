@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f5ef" />
+  <meta name="description" content="Brisa Estudio: peluquería cercana, cortes con intención y cuidado del cabello sin prisas." />
+  <title>Brisa Estudio — Peluquería con calma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f5ef;
+      --white: #fffefa;
+      --ink: #242924;
+      --muted: #6c746b;
+      --green: #506455;
+      --green-dark: #34483a;
+      --lime: #dce8c9;
+      --clay: #d77a5b;
+      --line: #e6e4dc;
+      --shadow: 0 22px 60px rgba(43, 54, 45, .12);
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; }
+    .container { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .skip-link {
+      position: absolute; left: 16px; top: -60px; z-index: 50;
+      background: var(--ink); color: white; padding: 12px 16px; border-radius: 8px;
+    }
+    .skip-link:focus { top: 12px; }
+    .announcement {
+      padding: 9px 16px; text-align: center; color: #f9f7ef;
+      background: var(--green-dark); font-size: .76rem; letter-spacing: .08em;
+    }
+    .site-header {
+      position: sticky; top: 0; z-index: 20; background: rgba(247,245,239,.94);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(36,41,36,.08);
+    }
+    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+    .brand-mark {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid var(--green); border-radius: 50%; color: var(--green);
+      font-family: var(--serif); font-size: 1.45rem; font-style: italic;
+    }
+    .brand-copy { display: grid; line-height: 1.05; }
+    .brand-name { font-family: var(--serif); font-size: 1.18rem; font-weight: 600; letter-spacing: .01em; }
+    .brand-caption { margin-top: 5px; color: var(--muted); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(16px, 3vw, 34px); color: #505951; font-size: .88rem; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--clay); }
+    .button {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 0 21px; border: 1px solid transparent; border-radius: 999px;
+      font-size: .88rem; font-weight: 700; transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: var(--green); }
+    .button-primary:hover { background: var(--green-dark); }
+    .button-light { color: var(--green-dark); background: var(--white); border-color: var(--line); }
+    .button-light:hover { background: var(--lime); }
+    .button-text { color: var(--green-dark); padding-inline: 0; min-height: 42px; }
+    .button-text span { font-size: 1.2rem; transition: transform .2s ease; }
+    .button-text:hover span { transform: translateX(4px); }
+    .menu-toggle {
+      width: 44px; height: 44px; display: none; place-items: center;
+      border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: var(--white);
+      cursor: pointer;
+    }
+
+    .hero { padding: clamp(46px, 7vw, 92px) 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr .92fr; align-items: center; gap: clamp(36px, 7vw, 90px); }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--green); font-size: .72rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--clay); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, .serif { font-family: var(--serif); font-weight: 500; }
+    h1 { max-width: 660px; margin: 22px 0 20px; font-size: clamp(3.1rem, 6.3vw, 5.9rem); line-height: .99; letter-spacing: -.045em; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .hero-copy { max-width: 490px; color: var(--muted); font-size: 1.04rem; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 30px; }
+    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 35px; color: var(--muted); font-size: .78rem; }
+    .hero-note .dots { display: flex; color: var(--clay); letter-spacing: .08em; }
+    .hero-visual { position: relative; min-height: 500px; }
+    .hero-photo {
+      position: absolute; inset: 0 22px 16px 22px; overflow: hidden;
+      border-radius: 46% 46% 22px 22px; background: #d4d8ca;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .photo-wash { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(35,44,36,.03) 50%, rgba(35,44,36,.25)); }
+    .floating-note {
+      position: absolute; left: 0; bottom: 56px; width: 190px; padding: 17px 18px;
+      color: var(--ink); background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+    }
+    .floating-note strong { display: block; font-family: var(--serif); font-size: 1.1rem; font-weight: 600; }
+    .floating-note span { display: block; margin-top: 5px; color: var(--muted); font-size: .73rem; line-height: 1.5; }
+    .round-stamp {
+      position: absolute; right: -2px; top: 42px; width: 96px; height: 96px; display: grid; place-items: center;
+      border-radius: 50%; color: var(--green-dark); background: var(--lime); text-align: center;
+      font-size: .65rem; font-weight: 700; letter-spacing: .08em; line-height: 1.35; text-transform: uppercase;
+      transform: rotate(9deg);
+    }
+
+    .values { padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .values-row { display: flex; justify-content: space-between; gap: 20px; color: #536055; font-size: .8rem; letter-spacing: .05em; }
+    .value { display: flex; align-items: center; gap: 10px; }
+    .value b { color: var(--clay); font-size: 1.2rem; }
+
+    .section { padding: clamp(72px, 9vw, 120px) 0; }
+    .section-heading { max-width: 660px; margin: 0 auto 48px; text-align: center; }
+    .section-heading .eyebrow { justify-content: center; }
+    h2 { margin: 16px 0 14px; font-size: clamp(2.35rem, 4.4vw, 3.8rem); line-height: 1.08; letter-spacing: -.035em; }
+    .section-heading p { max-width: 520px; margin: 0 auto; color: var(--muted); line-height: 1.75; }
+    .services { background: var(--white); }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card {
+      position: relative; min-height: 292px; padding: 28px; overflow: hidden;
+      border: 1px solid var(--line); border-radius: var(--radius); background: #fbfaf6;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(43,54,45,.08); }
+    .service-number { color: var(--clay); font-family: var(--serif); font-size: 1.15rem; }
+    .service-icon {
+      width: 52px; height: 52px; display: grid; place-items: center; margin: 34px 0 21px;
+      border-radius: 50%; color: var(--green); background: var(--lime);
+    }
+    .service-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card h3 { margin-bottom: 9px; font-family: var(--serif); font-size: 1.5rem; font-weight: 500; }
+    .service-card p { max-width: 290px; margin-bottom: 17px; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .service-time { color: var(--green); font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+
+    .about-grid { display: grid; grid-template-columns: .96fr 1fr; align-items: center; gap: clamp(40px, 8vw, 110px); }
+    .about-image { position: relative; min-height: 480px; overflow: hidden; border-radius: 22px 22px 130px 22px; background: #d7d7cb; }
+    .about-image img { width: 100%; height: 100%; min-height: 480px; object-fit: cover; }
+    .about-badge {
+      position: absolute; right: 18px; bottom: 18px; max-width: 210px; padding: 15px 18px;
+      border-radius: 14px; color: var(--green-dark); background: var(--lime); font-size: .8rem; line-height: 1.5;
+    }
+    .about-copy h2 { max-width: 520px; }
+    .about-copy > p { color: var(--muted); line-height: 1.85; }
+    .check-list { display: grid; gap: 14px; margin: 27px 0 30px; padding: 0; list-style: none; }
+    .check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .9rem; line-height: 1.55; }
+    .check {
+      width: 21px; height: 21px; flex: 0 0 21px; display: grid; place-items: center;
+      border-radius: 50%; color: white; background: var(--green); font-size: .7rem; margin-top: 1px;
+    }
+
+    .gallery { padding-top: 34px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.1fr .9fr 1fr; gap: 16px; align-items: end; }
+    .gallery-item { position: relative; min-height: 300px; overflow: hidden; border-radius: 20px; background: #d8d7ce; }
+    .gallery-item:nth-child(2) { min-height: 380px; }
+    .gallery-item img { width: 100%; height: 100%; min-height: inherit; object-fit: cover; transition: transform .5s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-caption {
+      position: absolute; right: 12px; bottom: 12px; left: 12px; padding: 12px 14px;
+      border-radius: 12px; color: var(--ink); background: rgba(255,254,250,.93); font-size: .8rem; font-weight: 600;
+    }
+
+    .booking { color: white; background: var(--green-dark); }
+    .booking-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(40px, 8vw, 100px); align-items: start; }
+    .booking .eyebrow { color: var(--lime); }
+    .booking h2 { max-width: 470px; }
+    .booking-copy > p { max-width: 430px; color: rgba(255,255,255,.7); line-height: 1.75; }
+    .booking-hint { margin-top: 28px; color: rgba(255,255,255,.6); font-size: .76rem; line-height: 1.6; }
+    .booking-form { padding: clamp(24px, 4vw, 38px); border-radius: 22px; color: var(--ink); background: var(--white); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .field { display: grid; gap: 8px; }
+    .field-full { grid-column: 1 / -1; }
+    .field label { font-size: .78rem; font-weight: 700; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: 48px; padding: 12px 13px; border: 1px solid #dcded5;
+      border-radius: 10px; color: var(--ink); background: #fff; outline: none;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(80,100,85,.14); }
+    .booking-form .button { width: 100%; margin-top: 18px; }
+    .form-status { min-height: 24px; margin: 13px 0 0; color: var(--green-dark); font-size: .82rem; line-height: 1.5; }
+
+    .faq { background: var(--white); }
+    .faq-grid { max-width: 800px; margin: 0 auto; border-top: 1px solid var(--line); }
+    details { border-bottom: 1px solid var(--line); }
+    summary {
+      position: relative; padding: 22px 44px 22px 2px; cursor: pointer; list-style: none;
+      font-family: var(--serif); font-size: 1.25rem;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; position: absolute; right: 5px; top: 17px; color: var(--green); font-family: var(--sans); font-size: 1.5rem; }
+    details[open] summary::after { content: "−"; }
+    details p { max-width: 680px; margin: -2px 40px 22px 2px; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+    .contact { padding-bottom: 76px; }
+    .contact-panel {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center;
+      padding: clamp(28px, 5vw, 54px); border-radius: 24px; background: var(--lime);
+    }
+    .contact-panel h2 { max-width: 490px; margin-bottom: 10px; font-size: clamp(2rem, 4vw, 3rem); }
+    .contact-panel p { max-width: 440px; margin-bottom: 0; color: #536055; line-height: 1.65; }
+    .contact-details { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .contact-detail { padding: 16px; border: 1px solid rgba(52,72,58,.18); border-radius: 14px; background: rgba(255,254,250,.48); }
+    .contact-detail strong { display: block; margin-bottom: 6px; color: var(--green-dark); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .contact-detail span { color: #536055; font-size: .82rem; line-height: 1.5; }
+
+    .site-footer { padding: 28px 0; color: rgba(255,255,255,.75); background: #26382c; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-brand { color: white; font-family: var(--serif); font-size: 1.15rem; }
+    .footer-note { margin: 0; font-size: .75rem; }
+
+    @media (max-width: 900px) {
+      .hero-grid { gap: 32px; }
+      .hero-visual { min-height: 420px; }
+      .service-card { padding: 23px; }
+      .about-grid { gap: 42px; }
+      .booking-grid { gap: 38px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 36px, 560px); }
+      .nav-wrap { min-height: 68px; }
+      .menu-toggle { display: grid; }
+      .nav-cta { display: none; }
+      .nav-links {
+        position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none;
+        padding: 12px 22px 20px; flex-direction: column; align-items: stretch; gap: 0;
+        border-bottom: 1px solid var(--line); background: var(--paper); box-shadow: 0 16px 25px rgba(36,41,36,.08);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 13px 0; border-bottom: 1px solid var(--line); }
+      .nav-links a:last-child { border: 0; }
+      .hero { padding-top: 45px; }
+      .hero-grid, .about-grid, .booking-grid, .contact-panel { grid-template-columns: 1fr; }
+      .hero-copy { font-size: .96rem; }
+      .hero-visual { min-height: min(115vw, 490px); margin-top: 8px; }
+      .hero-photo { inset: 0 12px 14px 12px; }
+      .round-stamp { right: 0; width: 82px; height: 82px; font-size: .58rem; }
+      .floating-note { bottom: 38px; width: 175px; }
+      .values-row { flex-wrap: wrap; justify-content: center; gap: 13px 24px; font-size: .72rem; }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 0; }
+      .service-icon { margin-top: 25px; }
+      .about-image, .about-image img { min-height: 390px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item, .gallery-item:nth-child(2) { min-height: 260px; }
+      .gallery-item:first-child { grid-column: 1 / -1; min-height: 330px; }
+      .contact-details { grid-template-columns: 1fr 1fr; }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 460px) {
+      .container { width: calc(100% - 30px); }
+      .announcement { font-size: .65rem; letter-spacing: .04em; }
+      h1 { font-size: clamp(2.8rem, 14vw, 4rem); }
+      .hero-actions { align-items: stretch; flex-direction: column; gap: 8px; }
+      .hero-actions .button { width: 100%; }
+      .hero-actions .button-text { justify-content: center; }
+      .form-grid, .contact-details { grid-template-columns: 1fr; }
+      .field-full { grid-column: auto; }
+      .gallery-grid { gap: 10px; }
+      .gallery-item, .gallery-item:nth-child(2) { min-height: 215px; }
+      .gallery-item:first-child { min-height: 270px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <div class="announcement">Un espacio para bajar el ritmo y cuidar de ti</div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Brisa Estudio, ir al inicio">
+        <span class="brand-mark" aria-hidden="true">b.</span>
+        <span class="brand-copy">
+          <span class="brand-name">Brisa Estudio</span>
+          <span class="brand-caption">Peluquería con calma</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#estudio">El estudio</a>
+        <a href="#inspiracion">Inspiración</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+
+      <a class="button button-primary nav-cta" href="#reservar">Reserva tu cita <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="nav-links" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow">Peluquería · cuidado · estilo</div>
+          <h1>Tu pelo, <em>a tu manera.</em></h1>
+          <p class="hero-copy">Cortes pensados para tu día a día, color con luz propia y un rato para ti. Ven como eres; sal sintiéndote más tú.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#reservar">Quiero reservar <span aria-hidden="true">↗</span></a>
+            <a class="button button-text" href="#servicios">Descubre los servicios <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-note"><span class="dots" aria-hidden="true">✳ ✳ ✳</span> Atención cercana, sin prisas y con cita previa</div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Interior luminoso de un salón de peluquería" fetchpriority="high" />
+            <div class="photo-wash"></div>
+          </div>
+          <div class="round-stamp" aria-label="Belleza sencilla, cuidado consciente">Belleza<br />sencilla<br />✳ cuidado</div>
+          <div class="floating-note">
+            <strong>Un cambio que se siente bien.</strong>
+            <span>Ideas honestas y cuidado adaptado a tu cabello.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="values" aria-label="Lo que nos importa">
+      <div class="container values-row">
+        <span class="value"><b aria-hidden="true">✳</b> Escucha antes que tendencia</span>
+        <span class="value"><b aria-hidden="true">✳</b> Productos profesionales</span>
+        <span class="value"><b aria-hidden="true">✳</b> Un resultado fácil de llevar</span>
+      </div>
+    </section>
+
+    <section class="section services" id="servicios">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Lo esencial, bien hecho</div>
+          <h2>Un buen día empieza<br />por sentirte bien.</h2>
+          <p>Te recomendamos lo que de verdad encaja con tu pelo, tu estilo y el tiempo que quieres dedicarle en casa.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-number">01 / Corte</span>
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="m8.2 8.2 12 12M14 10l6-6M8.2 15.8l4.2-4.2"></path></svg>
+            </div>
+            <h3>Corte con intención</h3>
+            <p>Un corte que acompaña tu textura natural y funciona también cuando lo peinas tú.</p>
+            <span class="service-time">Corte · lavado · peinado</span>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">02 / Color</span>
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3c4.5 5.4 7 8.4 7 11.2a7 7 0 1 1-14 0C5 11.4 7.5 8.4 12 3Z"></path><path d="M9 16.5c.5 1.1 1.5 1.7 2.7 1.7"></path></svg>
+            </div>
+            <h3>Color con luz</h3>
+            <p>Matices naturales, reflejos y color personalizado con una consulta previa.</p>
+            <span class="service-time">Color · mechas · matiz</span>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">03 / Cuidado</span>
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10.2A4.3 4.3 0 0 1 12 8a4.3 4.3 0 0 1 7 2.8C19 16.6 12 21 12 21Z"></path><path d="M9 13c1.1-1.1 2-1.6 3-1.6s1.9.5 3 1.6"></path></svg>
+            </div>
+            <h3>Ritual de cuidado</h3>
+            <p>Un extra de hidratación y calma para que el cabello recupere suavidad y movimiento.</p>
+            <span class="service-time">Diagnóstico · tratamiento</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="estudio">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="Estilista trabajando con cuidado en el cabello de una clienta" loading="lazy" />
+          <div class="about-badge">Un espacio cercano, tranquilo y hecho para que te sientas a gusto.</div>
+        </div>
+        <div class="about-copy">
+          <div class="eyebrow">Hola, somos Brisa</div>
+          <h2>Menos ruido.<br />Más tú.</h2>
+          <p>Creemos que una buena peluquería empieza con una conversación. Nos cuentas qué te gusta, cómo cuidas tu pelo y qué te apetece cambiar. A partir de ahí, buscamos juntas un resultado realista y bonito.</p>
+          <ul class="check-list">
+            <li><span class="check" aria-hidden="true">✓</span><span>Escuchamos antes de cortar y explicamos cada paso.</span></li>
+            <li><span class="check" aria-hidden="true">✓</span><span>Elegimos rutinas sencillas que puedas mantener en casa.</span></li>
+            <li><span class="check" aria-hidden="true">✓</span><span>Trabajamos con cita para dedicarte el tiempo que necesitas.</span></li>
+          </ul>
+          <a class="button button-text" href="#reservar">Ven a conocernos <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="inspiracion">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Ideas para tu próxima visita</div>
+          <h2>Un poco de inspiración.</h2>
+          <p>Cada cabello es distinto. Estas imágenes marcan el ambiente; el resultado lo pensamos contigo.</p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Detalle de un peinado con textura natural" loading="lazy" />
+            <figcaption class="gallery-caption">Textura natural, movimiento suave</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Cabello cuidado después de una sesión de peluquería" loading="lazy" />
+            <figcaption class="gallery-caption">Color con luz propia</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Retrato con un corte de cabello moderno" loading="lazy" />
+            <figcaption class="gallery-caption">Un corte hecho para ti</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section booking" id="reservar">
+      <div class="container booking-grid">
+        <div class="booking-copy">
+          <div class="eyebrow">Tu próximo rato para ti</div>
+          <h2>¿Lo hablamos?</h2>
+          <p>Cuéntanos qué tienes en mente y qué día te viene bien. Te ayudaremos a elegir el servicio y el tiempo que necesitas.</p>
+          <p class="booking-hint">Este formulario es una demostración visual: todavía no envía solicitudes. Conecta aquí tu WhatsApp o sistema de reservas antes de publicar la página.</p>
+        </div>
+        <form class="booking-form" id="booking-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Tu nombre</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="¿Cómo te llamas?" required />
+            </div>
+            <div class="field">
+              <label for="email">Tu correo</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required />
+            </div>
+            <div class="field field-full">
+              <label for="service">¿Qué te apetece?</label>
+              <select id="service" name="service" required>
+                <option value="" selected disabled>Elige un servicio</option>
+                <option>Corte con intención</option>
+                <option>Color con luz</option>
+                <option>Ritual de cuidado</option>
+                <option>Quiero que me orientéis</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="message">Cuéntanos un poco más <span style="font-weight:400;color:#6c746b;">(opcional)</span></label>
+              <textarea id="message" name="message" placeholder="Longitud, idea, disponibilidad…"></textarea>
+            </div>
+          </div>
+          <button class="button button-primary" type="submit">Preparar solicitud <span aria-hidden="true">↗</span></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section faq" id="preguntas">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Antes de venir</div>
+          <h2>Preguntas frecuentes.</h2>
+        </div>
+        <div class="faq-grid">
+          <details>
+            <summary>¿Necesito reservar antes?</summary>
+            <p>Trabajamos con cita previa para poder dedicar a cada persona el tiempo que merece. Usa el formulario de esta demo como punto de partida y añade tus datos de reserva antes de publicarla.</p>
+          </details>
+          <details>
+            <summary>¿Y si no sé qué servicio elegir?</summary>
+            <p>No pasa nada. Cuéntanos qué te gustaría conseguir y te orientaremos antes de empezar, especialmente para los servicios de color.</p>
+          </details>
+          <details>
+            <summary>¿Puedo venir con una foto de referencia?</summary>
+            <p>¡Claro! Las referencias ayudan a entender el estilo que buscas. También hablaremos de lo que puede funcionar mejor con tu tipo de cabello y tu rutina.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="container contact-panel">
+        <div>
+          <div class="eyebrow">Pásate a saludar</div>
+          <h2>Tu momento empieza aquí.</h2>
+          <p>Completa estos datos de ejemplo con la dirección, el horario y el canal de reservas reales de tu peluquería.</p>
+        </div>
+        <div class="contact-details">
+          <div class="contact-detail"><strong>Encuéntranos</strong><span>Añade aquí la dirección del salón</span></div>
+          <div class="contact-detail"><strong>Horario</strong><span>Añade aquí los días y horas de apertura</span></div>
+          <div class="contact-detail"><strong>Reservas</strong><span>Añade tu teléfono o enlace de WhatsApp</span></div>
+          <div class="contact-detail"><strong>Redes</strong><span>Añade tu perfil de Instagram</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="footer-brand" href="#inicio">Brisa Estudio</a>
+      <p class="footer-note">Una demo de peluquería. Personaliza contacto, horarios y reservas antes de publicarla.</p>
+      <p class="footer-note">© <span id="year">2026</span> Brisa Estudio</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector("#menu-toggle");
+    const navLinks = document.querySelector("#nav-links");
+    const bookingForm = document.querySelector("#booking-form");
+    const formStatus = document.querySelector("#form-status");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+      navLinks.classList.toggle("is-open", !isOpen);
+    });
+
+    navLinks.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navLinks.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      }
+    });
+
+    bookingForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      formStatus.textContent = "Formulario de demostración: la solicitud no se ha enviado. Conecta un canal de reservas para recibirla.";
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
