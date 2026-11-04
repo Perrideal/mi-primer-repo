@@ -1,3 +1,7 @@
+# Brisa Estudio — peluquería
+
+Página web estática de ejemplo: [index.html](./index.html). Incluye servicios, galería y formulario de muestra. El formulario aún no envía citas; personaliza los datos de contacto antes de publicarla.
+
 # Skills de Claude localizadas
 
 Estas cinco skills coinciden con los nombres o las descripciones de la imagen. Los enlaces llevan a sus fuentes originales; este repositorio las cataloga y deja los comandos listos para instalarlas en un proyecto de Claude Code.
