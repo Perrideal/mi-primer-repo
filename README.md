@@ -1,3 +1,11 @@
+# Calendario personal 2026–2027
+
+Calendario editable del 5 de noviembre de 2026 al 5 de noviembre de 2027: [abrir y apuntar en el calendario](./calendario.md). Edita la columna **Apuntes** directamente en GitHub con el botón del lápiz.
+
+Incluye las fiestas nacionales. Las fiestas autonómicas y locales dependen de tu comunidad y municipio. [Código de la vista interactiva](./calendario.html); para abrirla como página hace falta activar GitHub Pages, que ahora no está habilitado en este repositorio.
+
+---
+
 # Brisa Estudio — peluquería
 
 Página web estática de ejemplo: [index.html](./index.html). Incluye servicios, galería y formulario de muestra. El formulario aún no envía citas; personaliza los datos de contacto antes de publicarla.
